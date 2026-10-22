@@ -219,6 +219,8 @@ The closed-book evaluation scored 94.0% with the skill and 44.9% without it acro
 
 See [`BENCHMARK.md`](BENCHMARK.md) for the per-task results and caveats. These are development evaluations, not a certification or a guarantee of correctness.
 
+Questions and feedback: [GitHub Discussions](https://github.com/thedeveloper256/ibcs-standards-skill/discussions).
+
 ## License and attribution
 
 The repository content is licensed under CC BY-SA 4.0. See [`LICENSE`](LICENSE) and the skill’s [`source-and-license.md`](.opencode/skills/ibcs-standards/references/source-and-license.md).
