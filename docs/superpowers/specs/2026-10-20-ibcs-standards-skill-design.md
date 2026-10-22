@@ -3,6 +3,7 @@
 **Date:** 2026-10-20  
 **Status:** Draft for user review  
 **Artifact:** `.opencode/skills/ibcs-standards/`  
+**Portability:** The artifact is plain Markdown with a standard `SKILL.md` entry point. `.opencode` is the canonical in-repo path, but the folder can be installed in any harness's skills directory.  
 **Skill ID:** `ibcs-standards`  
 **Source:** *International Business Communication Standards (IBCS) Version 2.0*, 2026-07-02, 169 pages, CC BY-SA 4.0.
 
@@ -10,7 +11,7 @@
 
 ## 1. Summary
 
-Build one OpenCode skill that acts as a **closed-book working substitute** for the IBCS Standards v2.0. An agent with only this skill folder must be able to:
+Build one agent skill that acts as a **closed-book working substitute** for the IBCS Standards v2.0. An agent with only this skill folder must be able to:
 
 - answer rule-level questions with the correct rule ID;
 - audit a report page and identify violations by severity;
@@ -56,7 +57,7 @@ When a question falls outside the catalog, the skill must say so and cite the ga
 
 ## 4. Users and use cases
 
-**Primary user:** a report author, analyst, controller, or designer using OpenCode to create or repair business reporting.
+**Primary user:** a report author, analyst, controller, or designer using an agent harness (OpenCode, Claude Code, or another `SKILL.md`-compatible harness) to create or repair business reporting.
 
 | Use case | Example request | Required skill behavior |
 |---|---|---|
@@ -596,7 +597,7 @@ This keeps the project clean and prevents the eval agents from reading the PDF.
 **Resolved:**
 
 - One skill, modular references.
-- Project-local install at `.opencode/skills/ibcs-standards/`.
+- Canonical project-local install at `.opencode/skills/ibcs-standards/`; copy to a harness-specific skills directory as needed.
 - Full 105-sub-rule catalog plus practical core.
 - Closed-book working substitute, not a full-text mirror.
 - All four tool guides: Python, Power BI, Excel, HTML/JS.

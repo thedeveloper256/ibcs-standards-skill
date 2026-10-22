@@ -5,7 +5,7 @@ Development evaluation of the `ibcs-standards` skill for closed-book use. These 
 ## Method
 
 - **Baseline:** five general subagents received only the task prompt. They had no access to the skill or the source PDF.
-- **With skill:** five fresh general subagents received the same prompts and could read only `.opencode/skills/ibcs-standards/`. They were forbidden to read the PDF, design spec, plan, or evaluation workspace.
+- **With skill:** five fresh general subagents received the same prompts and could read only the `ibcs-standards` skill folder. They were forbidden to read the PDF, design spec, plan, or evaluation workspace.
 - **Grading:** each answer was checked against task-specific assertions for rule IDs, notation, signs, colors, widths, layout, and tool limitations.
 - **Current run:** iteration 3, after the final consistency fixes. Five tasks, one run per configuration.
 

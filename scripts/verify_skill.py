@@ -9,18 +9,42 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILL = ROOT / ".opencode" / "skills" / "ibcs-standards"
+DEFAULT_SKILL = ROOT / ".opencode" / "skills" / "ibcs-standards"
+SKILL = DEFAULT_SKILL
 SPEC = ROOT / "docs" / "superpowers" / "specs" / "2026-10-20-ibcs-standards-skill-design.md"
 
-RULE_FILES = {
-    "SI": SKILL / "references" / "rules" / "si-simplify.md",
-    "UN": SKILL / "references" / "rules" / "un-unify.md",
-    "CH": SKILL / "references" / "rules" / "ch-check.md",
-    "SA": SKILL / "references" / "rules" / "sa-say.md",
-    "ST": SKILL / "references" / "rules" / "st-structure.md",
-    "EX": SKILL / "references" / "rules" / "ex-express.md",
-    "CO": SKILL / "references" / "rules" / "co-condense.md",
-}
+SKILL_CANDIDATES = [
+    ROOT / ".opencode" / "skills" / "ibcs-standards",
+    ROOT / ".claude" / "skills" / "ibcs-standards",
+    ROOT / ".agents" / "skills" / "ibcs-standards",
+    ROOT / "skills" / "ibcs-standards",
+]
+
+
+def rule_files(skill: Path) -> dict[str, Path]:
+    return {
+        "SI": skill / "references" / "rules" / "si-simplify.md",
+        "UN": skill / "references" / "rules" / "un-unify.md",
+        "CH": skill / "references" / "rules" / "ch-check.md",
+        "SA": skill / "references" / "rules" / "sa-say.md",
+        "ST": skill / "references" / "rules" / "st-structure.md",
+        "EX": skill / "references" / "rules" / "ex-express.md",
+        "CO": skill / "references" / "rules" / "co-condense.md",
+    }
+
+
+def discover_skill(explicit: str | None) -> Path:
+    if explicit:
+        path = Path(explicit).expanduser()
+        if not path.is_absolute():
+            path = (Path.cwd() / path).resolve()
+        return path
+    for candidate in SKILL_CANDIDATES:
+        if (candidate / "SKILL.md").exists():
+            return candidate
+    return DEFAULT_SKILL
+
+
 REQUIRED_FIELDS = [
     "**Requirement.**",
     "**Why.**",
@@ -69,14 +93,25 @@ def missing(path: Path, allow_missing: bool) -> bool:
     if path.exists():
         return False
     target = notes if allow_missing else failures
-    target.append(f"MISSING: {path.relative_to(ROOT)}")
+    try:
+        label = path.relative_to(ROOT)
+    except ValueError:
+        label = path
+    target.append(f"MISSING: {label}")
     return True
 
 
 def main() -> int:
+    global SKILL
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--allow-missing", action="store_true")
+    parser.add_argument(
+        "--skill-dir",
+        help="Path to the skill directory; auto-detects .opencode, .claude, .agents, or skills/",
+    )
     args = parser.parse_args()
+    SKILL = discover_skill(args.skill_dir)
 
     if not SPEC.exists():
         fail(f"missing spec: {SPEC}")
@@ -90,7 +125,7 @@ def main() -> int:
             fail(f"spec inventory has {len(expected)} sub-rules, expected 105")
 
     seen: dict[str, str] = {}
-    for prefix, path in RULE_FILES.items():
+    for prefix, path in rule_files(SKILL).items():
         if missing(path, args.allow_missing):
             continue
         text = path.read_text(encoding="utf-8")
@@ -133,6 +168,21 @@ def main() -> int:
     skill_md = SKILL / "SKILL.md"
     if not missing(skill_md, args.allow_missing) and not args.allow_missing:
         text = skill_md.read_text(encoding="utf-8")
+        frontmatter = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+        if not frontmatter:
+            fail("SKILL.md missing YAML frontmatter")
+        else:
+            front = frontmatter.group(1)
+            name_match = re.search(r"^name:\s*(\S+)\s*$", front, re.M)
+            if not name_match:
+                fail("SKILL.md frontmatter missing name")
+            elif name_match.group(1) != SKILL.name:
+                fail(
+                    f"SKILL.md frontmatter name {name_match.group(1)!r} "
+                    f"does not match folder {SKILL.name!r}"
+                )
+            if not re.search(r"^description:\s*\S", front, re.M):
+                fail("SKILL.md frontmatter missing description")
         line_count = len(text.splitlines())
         if line_count >= 500:
             fail(f"SKILL.md has {line_count} lines, expected <500")

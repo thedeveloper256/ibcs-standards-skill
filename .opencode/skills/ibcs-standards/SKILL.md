@@ -1,5 +1,5 @@
 ---
-name: IBCS Standards
+name: ibcs-standards
 description: Use when designing, reviewing, fixing, or explaining business reports, presentations, dashboards, charts, tables, KPI pages, variance analyses, or scenario comparisons; when someone mentions IBCS, ISO 24896, SUCCESS, semantic notation, solid/outlined/hatched scenarios, variance colors, small multiples, or asks whether a visual is clear, honest, or decision-ready; or when choosing chart/table types for business data. Covers notation and composition, with implementation guidance for Python, Power BI, Excel, and HTML/JS.
 ---
 
