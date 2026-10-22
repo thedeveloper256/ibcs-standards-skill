@@ -1,5 +1,9 @@
 # IBCS Standards Skill
 
+![Example IBCS skill workflow: prompt, reference routing, key message, audit finding, and verifier output](docs/media/demo.gif)
+
+*Example run. The key message and audit finding come from the project's development evaluations.*
+
 An agent skill for IBCS v2.0 business reporting. It covers report design, review, repair, and explanation for dashboards, charts, tables, KPI pages, variance analyses, and scenario comparisons.
 
 The skill uses a standard `SKILL.md` entry point with relative references. It runs in OpenCode, Claude Code, Codex-style `AGENTS.md` harnesses, rules-based editors, and any other agent that can read a skill directory or follow a pointer.
@@ -7,6 +11,21 @@ The skill uses a standard `SKILL.md` entry point with relative references. It ru
 It covers all 35 top-level rules and 105 sub-rules across SIMPLIFY, UNIFY, CHECK, SAY, STRUCTURE, EXPRESS, and CONDENSE. It also includes semantic notation, a chart and table catalog, a composition playbook, five worked examples, an audit checklist, a completeness map, a glossary, and guides for Python, Power BI, Excel, and HTML/JS.
 
 > **Independent derivative work.** This repository is not affiliated with, endorsed by, or certified by the IBCS Association, the authors of IBCS v2.0, or ISO. It is a working summary, not a substitute for the official IBCS source or ISO 24896 for legal, certification, or formal-compliance purposes. IBCS is a registered trademark of IBCS Institute.
+
+## Who this is for
+
+This skill is for people who already know the reporting problem and want an agent to apply IBCS consistently:
+
+- FP&A and controlling teams who need report pages and variance explanations that follow the same rules.
+- BI analysts and report designers working in Power BI, Excel, Python, or web dashboards.
+- Reviewers who audit dashboards against IBCS and need to cite rule IDs.
+- AI-agent users who want domain rules available without pasting the source PDF into context.
+
+## What this replaces
+
+The skill replaces the slow lookup, not the standard. A rule that used to require searching the 169-page IBCS v2.0 PDF now sits in a compact rule file with the same ID and source page. The agent can cite `CH 1.1` or `UN 4.1` and run the audit checklist instead of relying on memory. Each page review uses the same notation, composition, and integrity checks.
+
+The skill does not replace the source for formal compliance, certification, or figure-level detail. For those, use the official IBCS source and ISO 24896.
 
 ## What's in the repo
 
@@ -48,6 +67,8 @@ Also in the repo:
 
 - `AGENTS.md`: a pointer for Codex-style and other `AGENTS.md`-based harnesses.
 - `scripts/verify_skill.py`: checks rule counts, entry schema, router targets, coverage map, and required files. It auto-detects `.opencode/`, `.claude/`, `.agents/`, or `skills/`, and accepts `--skill-dir` for any other location.
+- `scripts/install-skill.ps1` and `scripts/install-skill.sh`: one-command installers.
+- `docs/media/demo.gif` and `docs/media/social-preview.png`: the workflow demo and GitHub social card.
 - `docs/superpowers/specs/2026-10-20-ibcs-standards-skill-design.md`: design and acceptance criteria.
 - `BENCHMARK.md`: current closed-book evaluation summary.
 
@@ -56,6 +77,32 @@ The source PDF is not redistributed in this repository.
 ## Install
 
 The skill is plain Markdown. `SKILL.md` is the entry point; all references are relative to it. Copy the whole `ibcs-standards` folder and keep its name. Copying only `SKILL.md` leaves the references behind.
+
+### One command
+
+PowerShell 5.1 or later:
+
+```powershell
+irm https://raw.githubusercontent.com/thedeveloper256/ibcs-standards-skill/main/scripts/install-skill.ps1 | iex
+```
+
+bash with `curl` and `tar`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/thedeveloper256/ibcs-standards-skill/main/scripts/install-skill.sh | bash
+```
+
+Both install to `.opencode/skills/ibcs-standards` in the current directory. The scripts also accept a different target:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/thedeveloper256/ibcs-standards-skill/main/scripts/install-skill.sh | bash -s -- .claude/skills/ibcs-standards
+```
+
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/thedeveloper256/ibcs-standards-skill/main/scripts/install-skill.ps1))) -Target ".claude/skills/ibcs-standards"
+```
+
+Use `--global` with the bash script, or `-Global` with the PowerShell script, for a global OpenCode install.
 
 | Harness | Project install | Global install |
 |---|---|---|
