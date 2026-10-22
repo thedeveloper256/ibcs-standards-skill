@@ -548,7 +548,7 @@ Assertions:
 Use a temp workspace outside the skill folder:
 
 ```text
-C:\Users\Shayan\AppData\Local\Temp\opencode\ibcs-skill-workspace\
+<temp>\opencode\ibcs-skill-workspace\
   iteration-1\
     eval-0-rule-retrieval\
     eval-1-page-design\
