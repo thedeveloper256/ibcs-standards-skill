@@ -1,0 +1,20 @@
+{
+  "$comment": "Non-normative starter tokens. IBCS does not prescribe exact color codes; keep tokens consistent within an organization.",
+  "scenario": {
+    "actual": { "fill": "#4D4D4D", "label": "AC" },
+    "previous": { "fill": "#BFBFBF", "label": "PY" },
+    "plan": { "fill": "none", "stroke": "#4D4D4D", "label": "PL" },
+    "budget": { "fill": "none", "stroke": "#4D4D4D", "label": "BU" },
+    "forecast": { "fill": "hatch", "stroke": "#4D4D4D", "label": "FC" }
+  },
+  "variance": {
+    "desirable": "#00B050",
+    "undesirable": "#C00000",
+    "neutral": "#0070C0",
+    "grayscale": {
+      "desirable": "#D9D9D9",
+      "undesirable": "#404040",
+      "neutral": "#808080"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+# Source PDF is not redistributed in this repository.
+*.pdf
+
+# Local development evidence and plans (kept out of the clean repo).
+docs/superpowers/evals/
+docs/superpowers/plans/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
