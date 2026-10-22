@@ -1,14 +1,14 @@
 # IBCS Standards Skill
 
-A closed-book agent skill for designing, reviewing, fixing, and explaining business reports, presentations, dashboards, charts, tables, KPI pages, variance analyses, and scenario comparisons using IBCS v2.0 notation.
+An agent skill for IBCS v2.0 business reporting. It covers report design, review, repair, and explanation for dashboards, charts, tables, KPI pages, variance analyses, and scenario comparisons.
 
-The skill is harness-agnostic: `SKILL.md` is a standard entry point and every reference is relative. It works with OpenCode, Claude Code, Codex-style `AGENTS.md` harnesses, rules-based editors, and any other agent that can read a skill directory or follow an instruction pointer.
+The skill uses a standard `SKILL.md` entry point with relative references. It runs in OpenCode, Claude Code, Codex-style `AGENTS.md` harnesses, rules-based editors, and any other agent that can read a skill directory or follow a pointer.
 
-It encodes all **35 top-level rules** and **105 sub-rules** across SIMPLIFY, UNIFY, CHECK, SAY, STRUCTURE, EXPRESS, and CONDENSE, plus semantic notation, a chart/table catalog, a composition playbook, five worked examples, an audit checklist, a completeness map, a glossary, and implementation guides for Python, Power BI, Excel, and HTML/JS.
+It covers all 35 top-level rules and 105 sub-rules across SIMPLIFY, UNIFY, CHECK, SAY, STRUCTURE, EXPRESS, and CONDENSE. It also includes semantic notation, a chart and table catalog, a composition playbook, five worked examples, an audit checklist, a completeness map, a glossary, and guides for Python, Power BI, Excel, and HTML/JS.
 
 > **Independent derivative work.** This repository is not affiliated with, endorsed by, or certified by the IBCS Association, the authors of IBCS v2.0, or ISO. It is a working summary, not a substitute for the official IBCS source or ISO 24896 for legal, certification, or formal-compliance purposes. IBCS is a registered trademark of IBCS Institute.
 
-## What is in this repository
+## What's in the repo
 
 ```text
 .opencode/skills/ibcs-standards/
@@ -42,20 +42,20 @@ It encodes all **35 top-level rules** and **105 sub-rules** across SIMPLIFY, UNI
         └── co-condense.md
 ```
 
-The canonical copy lives at `.opencode/skills/ibcs-standards/`. Copy that folder to the path your harness expects; the folder name is the skill ID.
+The copy in this repo is at `.opencode/skills/ibcs-standards/`. Copy that folder to the path your harness expects. The folder name is the skill ID.
 
-Also included:
+Also in the repo:
 
-- `AGENTS.md` — a ready-made pointer for Codex-style and other `AGENTS.md`-based harnesses.
-- `scripts/verify_skill.py` — structural verification harness for rule counts, entry schema, router targets, coverage map, and required files. It auto-detects `.opencode/`, `.claude/`, `.agents/`, or `skills/`, and accepts `--skill-dir` for any other location.
-- `docs/superpowers/specs/2026-10-20-ibcs-standards-skill-design.md` — design and acceptance criteria.
-- `BENCHMARK.md` — current closed-book evaluation summary.
+- `AGENTS.md`: a pointer for Codex-style and other `AGENTS.md`-based harnesses.
+- `scripts/verify_skill.py`: checks rule counts, entry schema, router targets, coverage map, and required files. It auto-detects `.opencode/`, `.claude/`, `.agents/`, or `skills/`, and accepts `--skill-dir` for any other location.
+- `docs/superpowers/specs/2026-10-20-ibcs-standards-skill-design.md`: design and acceptance criteria.
+- `BENCHMARK.md`: current closed-book evaluation summary.
 
-The source PDF is **not** redistributed in this repository.
+The source PDF is not redistributed in this repository.
 
 ## Install
 
-The skill is plain Markdown. `SKILL.md` is the entry point, and every reference is relative to that file. Copy the **whole `ibcs-standards` folder**, preserving its name; do not copy only `SKILL.md`.
+The skill is plain Markdown. `SKILL.md` is the entry point; all references are relative to it. Copy the whole `ibcs-standards` folder and keep its name. Copying only `SKILL.md` leaves the references behind.
 
 | Harness | Project install | Global install |
 |---|---|---|
@@ -88,7 +88,7 @@ OpenCode discovers the project or global skill automatically. In a session, you 
 ~/.claude/skills/ibcs-standards
 ```
 
-Claude Code auto-discovers both locations and loads the `SKILL.md` body when the skill matches the task. It hot-reloads changes in these directories; if a newly copied skill does not appear, run `/reload-skills` or restart the session. Ask for the skill by name if you want to select it explicitly.
+Claude Code discovers both locations and loads `SKILL.md` when the skill matches the task. It reloads changes in these directories automatically. If a newly copied skill does not appear, run `/reload-skills` or restart the session. You can also ask for the skill by name.
 
 ### Codex and other `AGENTS.md`-based harnesses
 
@@ -106,14 +106,14 @@ Keep the skill folder anywhere in the project and adjust the path in the pointer
 
 ### Cursor, Copilot, Windsurf, and other rules-based editors
 
-These tools do not share one native skill directory, so use their instruction mechanism as the entry point. For example:
+These tools do not share a native skill directory. Use their instruction file as the entry point. For example:
 
-- **Cursor:** add `.cursor/rules/ibcs-standards.mdc` with the pointer above.
-- **GitHub Copilot:** add the pointer to `.github/copilot-instructions.md`.
-- **Windsurf or another rules-based editor:** add it to the editor’s project rules file.
-- **Any harness that supports a skill directory:** point it at the `ibcs-standards` folder directly.
+- Cursor: add `.cursor/rules/ibcs-standards.mdc` with the pointer above.
+- GitHub Copilot: add the pointer to `.github/copilot-instructions.md`.
+- Windsurf or another rules-based editor: add it to the editor’s project rules file.
+- Any harness that supports a skill directory: point it at the `ibcs-standards` folder directly.
 
-The pointer only needs to tell the agent to read `SKILL.md` first; the skill then routes to the relevant references.
+The pointer only needs to tell the agent to read `SKILL.md` first. The skill routes to the relevant references from there.
 
 ### Any other `SKILL.md`-compatible harness
 
@@ -130,9 +130,9 @@ If the harness accepts a path to a skill directory, point it at this folder. If 
 
 ### VS Code
 
-- **OpenCode extension:** project skill at `.opencode/skills/ibcs-standards/`.
-- **Claude Code extension:** project skill at `.claude/skills/ibcs-standards/`.
-- **GitHub Copilot:** pointer in `.github/copilot-instructions.md`.
+- OpenCode extension: project skill at `.opencode/skills/ibcs-standards/`.
+- Claude Code extension: project skill at `.claude/skills/ibcs-standards/`.
+- GitHub Copilot: pointer in `.github/copilot-instructions.md`.
 
 Reload the VS Code window or start a new agent session after installing.
 
@@ -142,7 +142,7 @@ Open the project, start a session, and ask an IBCS question, for example:
 
 > Design a one-page IBCS dashboard showing 24 months of sales actual vs plan, with the plan gap by product category.
 
-The agent should load `SKILL.md` automatically when the task matches, or you can name the skill explicitly.
+The agent should load `SKILL.md` automatically when the task matches. You can also name the skill explicitly.
 
 ## Verify the package
 
@@ -158,22 +158,22 @@ Expected result:
 PASS: skill package meets structural checks.
 ```
 
-The verifier auto-detects the canonical `.opencode/` copy, then `.claude/`, `.agents/`, and `skills/`. If the skill is installed somewhere else, pass the folder explicitly:
+The verifier checks `.opencode/` first, then `.claude/`, `.agents/`, and `skills/`. If the skill is installed somewhere else, pass the folder explicitly:
 
 ```powershell
 python scripts/verify_skill.py --skill-dir "C:\path\to\ibcs-standards"
 ```
 
-The harness checks the exact rule counts (SI 14, UN 18, CH 15, SA 14, ST 14, EX 14, CO 16), the 105-row completeness map, required rule-entry fields, router targets, JSON validity, and required sections.
+It checks the exact rule counts (SI 14, UN 18, CH 15, SA 14, ST 14, EX 14, CO 16), the 105-row completeness map, required rule-entry fields, router targets, JSON validity, and required sections.
 
 ## Evaluation
 
-The current closed-book evaluation scored **94.0% with the skill vs 44.9% without it** across five tasks: rule retrieval, page design, audit, encoding, and tool implementation. The page-design task now scores 9/9 with a shared legend and full integrity checks.
+The closed-book evaluation scored 94.0% with the skill and 44.9% without it across five tasks: rule retrieval, page design, audit, encoding, and tool implementation. The page-design task scores 9/9 with a shared legend and full integrity checks.
 
 See [`BENCHMARK.md`](BENCHMARK.md) for the per-task results and caveats. These are development evaluations, not a certification or a guarantee of correctness.
 
 ## License and attribution
 
-The repository content is licensed under **CC BY-SA 4.0**. See [`LICENSE`](LICENSE) and the skill’s [`source-and-license.md`](.opencode/skills/ibcs-standards/references/source-and-license.md).
+The repository content is licensed under CC BY-SA 4.0. See [`LICENSE`](LICENSE) and the skill’s [`source-and-license.md`](.opencode/skills/ibcs-standards/references/source-and-license.md).
 
 Source attribution: *International Business Communication Standards (IBCS) Version 2.0*, Rolf Hichert and Jürgen Faisst, IBCS Media, Hilden, 2026, ISBN 978-3-9821414-4-2, licensed under CC BY-SA 4.0. This repository condenses and rewrites the material for closed-book agent use and does not reproduce the source figures or ISO 24896 text.
